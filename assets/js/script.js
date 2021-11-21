@@ -1,5 +1,5 @@
-const nineAM = $("#9AM");
-// nineAM.value = 9;
+const nineAM = $('#9AM');
+document.getElementById('9AM').value = '';
 const tenAM = $("#10AM");
 // tenAM.value = 10;
 const elevenAM = $("#11AM");
@@ -17,7 +17,7 @@ const fourPM = $("#4PM");
 const fivePM = $("#5PM");
 // fivePM.value = 17;
 
-var nineAMTextInput = nineAM.text;
+// var nineAMTextInput = nineAM.text;
 // var workHourArr = [9, 10, 11, 12, 13, 14, 15, 16, 17]
 
 //Decided to use LUXON instead of Moment due to Moment being legacy code
@@ -140,7 +140,7 @@ function timeColorChange() {
             fourPM.addClass("past");
             fivePM.addClass("present");
             break;
-        default:
+        case currentHour > 17:
             nineAM.addClass("past");
             tenAM.addClass("past");
             elevenAM.addClass("past");
@@ -167,8 +167,26 @@ $("#9AMBtn").on("click", nineSaveTask);
 
 function nineSaveTask() {
     alert("9AM button was clicked");
-    localStorage.setItem("9AMTasks", nineAMTextInput);
+    console.log(nineAM.value);
+    localStorage.setItem("9AMTasks", nineAM.value);
 };
 function nineLoadTask() {
-    nineAMTextInput = localStorage.getItem("9AMTasks");
+    localStorage.getItem("9AMTasks");
 }
+
+// function doSave(){
+//     //Set the item in doSave()
+//     //localStorage.setItem("text", text.value);
+// }
+
+// function doLoad(){
+//     //Get the item in doLoad()
+//     //text.value = localStorage.getItem("text");
+
+// window.onload = function(){
+//     saveButton = document.getElementById("save");
+//     saveButton.onclick = doSave;
+//     loadButton = document.getElementById("load");
+//     loadButton.onclick = doLoad;
+//     textarea = document.getElementById("text");
+// };
