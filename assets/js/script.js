@@ -17,8 +17,8 @@ const fourPM = $("#4PM");
 const fivePM = $("#5PM");
 // fivePM.value = 17;
 
-
-var workHourArr = [9, 10, 11, 12, 13, 14, 15, 16, 17]
+var nineAMTextInput = nineAM.text;
+// var workHourArr = [9, 10, 11, 12, 13, 14, 15, 16, 17]
 
 //Decided to use LUXON instead of Moment due to Moment being legacy code
 var DateTime = luxon.DateTime;
@@ -26,10 +26,121 @@ const now = DateTime.now();
 const currentHour = DateTime.local().hour;
 $("#currentDay").text(now.toLocaleString());
 
+
 //checks timeblocks and assigns them colors based on if the block is in the past(#d3d3d3), present(#ff6961), or future(#77dd77)
 function timeColorChange() {
-    for (var i = 9; i < 18; i++) {
-        if (currentHour > i) {
+    switch (currentHour) {
+        case currentHour < 9:
+            nineAM.addClass("future");
+            tenAM.addClass("future");
+            elevenAM.addClass("future");
+            twelvePM.addClass("future");
+            onePM.addClass("future");
+            twoPM.addClass("future");
+            threePM.addClass("future");
+            fourPM.addClass("future");
+            fivePM.addClass("future");
+            break;
+        case currentHour === 9:
+            nineAM.addClass("present");
+            tenAM.addClass("future");
+            elevenAM.addClass("future");
+            twelvePM.addClass("future");
+            onePM.addClass("future");
+            twoPM.addClass("future");
+            threePM.addClass("future");
+            fourPM.addClass("future");
+            fivePM.addClass("future");
+            break;
+        case currentHour === 10:
+            nineAM.addClass("past");
+            tenAM.addClass("present");
+            elevenAM.addClass("future");
+            twelvePM.addClass("future");
+            onePM.addClass("future");
+            twoPM.addClass("future");
+            threePM.addClass("future");
+            fourPM.addClass("future");
+            fivePM.addClass("future");
+            break;
+        case currentHour === 11:
+            nineAM.addClass("past");
+            tenAM.addClass("past");
+            elevenAM.addClass("present");
+            twelvePM.addClass("future");
+            onePM.addClass("future");
+            twoPM.addClass("future");
+            threePM.addClass("future");
+            fourPM.addClass("future");
+            fivePM.addClass("future");
+            break;
+        case currentHour === 12:
+            nineAM.addClass("past");
+            tenAM.addClass("past");
+            elevenAM.addClass("past");
+            twelvePM.addClass("present");
+            onePM.addClass("future");
+            twoPM.addClass("future");
+            threePM.addClass("future");
+            fourPM.addClass("future");
+            fivePM.addClass("future");
+            break;
+        case currentHour === 13:
+            nineAM.addClass("past");
+            tenAM.addClass("past");
+            elevenAM.addClass("past");
+            twelvePM.addClass("past");
+            onePM.addClass("present");
+            twoPM.addClass("future");
+            threePM.addClass("future");
+            fourPM.addClass("future");
+            fivePM.addClass("future");
+            break;
+        case currentHour === 14:
+            nineAM.addClass("past");
+            tenAM.addClass("past");
+            elevenAM.addClass("past");
+            twelvePM.addClass("past");
+            onePM.addClass("past");
+            twoPM.addClass("present");
+            threePM.addClass("future");
+            fourPM.addClass("future");
+            fivePM.addClass("future");
+            break;
+        case currentHour === 15:
+            nineAM.addClass("past");
+            tenAM.addClass("past");
+            elevenAM.addClass("past");
+            twelvePM.addClass("past");
+            onePM.addClass("past");
+            twoPM.addClass("past");
+            threePM.addClass("present");
+            fourPM.addClass("future");
+            fivePM.addClass("future");
+            break;
+        case currentHour === 16:
+            nineAM.addClass("past");
+            tenAM.addClass("past");
+            elevenAM.addClass("past");
+            twelvePM.addClass("past");
+            onePM.addClass("past");
+            twoPM.addClass("past");
+            threePM.addClass("past");
+            fourPM.addClass("present");
+            fivePM.addClass("future");
+            break;
+        case currentHour === 17:
+            nineAM.addClass("past");
+            tenAM.addClass("past");
+            elevenAM.addClass("past");
+            twelvePM.addClass("past");
+            onePM.addClass("past");
+            twoPM.addClass("past");
+            threePM.addClass("past");
+            fourPM.addClass("past");
+            fivePM.addClass("present");
+            break;
+        default:
             nineAM.addClass("past");
             tenAM.addClass("past");
             elevenAM.addClass("past");
@@ -39,30 +150,7 @@ function timeColorChange() {
             threePM.addClass("past");
             fourPM.addClass("past");
             fivePM.addClass("past");
-        }
-        if (i === currentHour) {
-            nineAM.addClass("present");
-            tenAM.addClass("present");
-            elevenAM.addClass("present");
-            twelvePM.addClass("present");
-            onePM.addClass("present");
-            // twoPM.addClass("present");
-            // threePM.addClass("present");
-            // fourPM.addClass("present");
-            // fivePM.addClass("present");
-        }
-        if (currentHour <i) {
-            nineAM.addClass("future");
-            tenAM.addClass("future");
-            elevenAM.addClass("future");
-            twelvePM.addClass("future");
-            onePM.addClass("future");
-            console.log(i);
-            // twoPM.addClass("future");
-            // threePM.addClass("future");
-            // fourPM.addClass("future");
-            // fivePM.addClass("future");
-        }
+            break;
     }
 };
 
@@ -72,3 +160,15 @@ setInterval(timeColorChange(), (1000 * 60) * 30);
 // newTextAreaEl.id = "textarea-" + i;
 
 //save task
+$("#9AMBtn").on("click", nineSaveTask);
+
+//   var loadTasks = function() {
+//     tasks = JSON.parse(localStorage.getItem("tasks"));
+
+function nineSaveTask() {
+    alert("9AM button was clicked");
+    localStorage.setItem("9AMTasks", nineAMTextInput);
+};
+function nineLoadTask() {
+    nineAMTextInput = localStorage.getItem("9AMTasks");
+}
